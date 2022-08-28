@@ -1,0 +1,14 @@
+{
+    "name": "Images",
+    "active": true,
+    "type": "images",
+
+    "data": {
+        "./images/pannel-arrow_source.png": "/home/egsagon/.config/eww/src/pannel-arrow.png",
+        "./images/pp_source.png": "/home/egsagon/.config/eww/src/pp.png",
+        "./images/wk-helper-bg_source.png": "/home/egsagon/.config/eww/src/wk-helper-bg.png",
+
+        "./images/mars_source.png": "/usr/share/backgrounds/mars.png",
+        "./images/pp_source2.png": "/usr/share/backgrounds/pp.png"
+    }
+}

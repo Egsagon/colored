@@ -1,0 +1,8 @@
+{
+    "name": "Rofi",
+    "active": true,
+    "type": "ow-all",
+
+    "path": "/home/egsagon/.config/rofi/colors.rasi",
+    "value": "*{al:@bg;bg:@com_acc;se:@com_acc;fg:@com_fg;ac:@bg;}"
+}

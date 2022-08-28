@@ -1,0 +1,12 @@
+{
+    "name": "VSCode",
+    "active": true,
+    "type": "ow-line",
+
+    "path": "/home/egsagon/.config/Code/User/settings.json",
+
+    "lines": {
+        "4": "\t\"workbench.colorTheme\": \"Visual Studio @theme\",\n",
+        "6": "\t\"workbench.colorCustomizations\": {\"activityBar.background\": \"@accent\",\"activityBar.foreground\": \"@bg\",\"activityBar.activeBackground\": \"@accent\",\"activityBarBadge.background\": \"@fg\",\"sideBar.background\": \"@bg\",\"sideBar.border\": \"@com_bg\",\"sideBarTitle.foreground\": \"@com_fg\",\"tab.activeBackground\": \"@accent\",\"tab.activeBorder\": \"@accent\",\"editor.background\": \"@bg\",},\n"
+    }
+}

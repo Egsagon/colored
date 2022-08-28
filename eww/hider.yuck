@@ -1,0 +1,53 @@
+(defvar show-hider true)
+
+(defpoll hide-label :interval "1m" :initial "" "echo $(python3 rand_sentence.py)")
+
+(defwindow  hider
+    :monitor 0
+    :geometry (geometry
+        :x 0 :y 0
+        :width "1920px" :height "1080px"
+        :anchor "center right"
+    )
+
+    :focusable "true"
+
+    (box
+        :space-evenly false
+        :valign "end"
+
+        (revealer
+            :reveal show-hider
+            :transition "slideup"
+            :duration "400ms"
+
+            (box
+                :orientation "vertical"
+                :space-evenly false
+                :halign "start"
+                :valign "center"
+
+                :class "hider-cnt"
+
+                (label
+                    :text hide-label
+                )
+
+                (revealer
+                    :reveal show-hider
+                    :transition "crossfade"
+                    :duration "400ms"
+
+                    (image :path "./src/loading_2.gif")
+                )
+
+                (button
+                    :onclick "eww close hider"
+                    :class "close-hider"
+
+                    "窱"
+                )
+            )
+        )
+    )
+)

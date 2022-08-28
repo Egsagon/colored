@@ -1,0 +1,8 @@
+{
+    "name": "EWW SCSS",
+    "active": true,
+    "type": "ow-all",
+
+    "path": "/home/egsagon/.config/eww/colors.scss",
+    "value": "$c-com-fg: @com_fg;\n$c-fg: @fg;\n$c-com-acc: @com_acc;\n$c-accent: @accent;\n$c-com-bg: @com_bg;\n$c-bg: @bg;\n"
+}

@@ -1,0 +1,25 @@
+{
+    "name": "Alacritty",
+    "active": true,
+    "type": "ow-line",
+
+    "path": "/home/egsagon/.config/alacritty/alacritty.yml",
+    
+    "lines": {
+        "59": "      background: '@bg'\n",
+        "60": "      foreground: '@com_fg'\n",
+        "63": "      cursor: '@accent'\n",
+        "66": "      background: '@fg'\n",
+
+        "68": "      black:   '@accent'\n",
+        "69": "      red:     '@accent'\n",
+        "70": "      green:   '@accent'\n",
+        "71": "      yellow:  '@accent'\n",
+        "72": "      blue:    '@accent'\n",
+        "73": "      magenta: '@accent'\n",
+        "74": "      cyan:    '@accent'\n",
+        "75": "      white:   '@accent'\n"
+    },
+
+    "...": "Using spaces instead of `\t` because alacritty parser dont like it"
+}

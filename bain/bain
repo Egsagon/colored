@@ -1,0 +1,74 @@
+#!/bin/bash
+
+source colors.sh
+
+create_and_set() {
+	original_image=$1
+	battery_percentage=$2
+	battery_status=$3
+	image_size=`identify -format '%wx%h' $original_image`
+
+	if [[ "$battery_status" == "Charging" ]]; then
+		color="$com_acc"
+	else
+		if [ "$battery_percentage" -ge 30 ]; then
+			color="$accent"
+		else
+			color='#92140C'
+		fi
+	fi
+
+	# Change color of image to com_bg
+	# convert $original_image +level-colors "#00000000","$com_bg" ./tmp.png
+
+	convert $original_image -fill "$com_bg" -opaque "#ffffff" ./tmp.png
+
+	# Add battery
+	convert ./tmp.png \
+		\( +clone -gravity South -crop x$battery_percentage% -fuzz 50% -fill $color -opaque $com_bg -background transparent -extent $image_size \) \
+		-gravity Center -composite -background $bg -extent 1920x1080 $tmp_directory/background.png
+
+	feh --no-fehbg --bg-scale $tmp_directory/background.png
+	# feh --bg-scale $tmp_directory/background.png
+}
+
+find_battery_path() {
+	local file
+	for file in /sys/class/power_supply/*; do
+	    read power_supply < "$file"/type
+	    if [ "$power_supply" = "Battery" ]; then
+		declare -r battery_found=1
+		echo "$file"
+		break
+	    fi
+	done
+
+	if [ -z "$battery_found" ]; then
+		echo "Couldn't find battery"
+		exit 1
+	fi
+
+}
+
+tmp_directory=/tmp/bain
+mkdir -p $tmp_directory
+
+file="$HOME/.bain/images/$1.png"
+battery_path=$(find_battery_path)
+last_capacity=`< $battery_path/capacity`
+last_status=`< $battery_path/status`
+create_and_set $file $last_capacity $last_status
+
+while true
+do
+	current_capacity=`< $battery_path/capacity`
+	current_status=`< $battery_path/status`
+
+	if [[ "$current_capacity" != "$last_capacity" ]] || [[ "$current_status" != "$last_status" ]]
+	then
+		create_and_set $file $current_capacity $current_status
+		last_capacity=$current_capacity
+		last_status=$current_status
+	fi
+	sleep 3
+done

@@ -1,0 +1,171 @@
+; -------------- ;
+; EWW BAR CONFIG ;
+; -------------- ;
+
+(include "./desk.yuck")
+(include "./utils.yuck")
+(include "./pannel.yuck")
+(include "./colors.yuck")
+(include "./scheme.yuck")
+(include "./hider.yuck")
+
+; Revealers
+(defvar rev-bat false)
+(defvar rev-brg false)
+(defvar rev-sys false)
+
+(defvar hv-arrow false)
+(defvar hv-schemes false)
+(defvar allow-schemes true)
+
+; Date
+(defpoll hour :interval "10s" :initial "0" "date +%H:%M")
+(defpoll date :interval "1m" :initial "0" "date +%H:%M")
+
+; Workspaces
+; (defpoll wks :interval "300ms" :initial "{}" "i3-msg -t get_workspaces") ; on i3
+(defpoll wks :interval "300ms" :initial "{}" `echo $(python3 ./get_wks.py)`) ; on qtile or other
+
+
+(defwidget rev-widget [?var ?varname ?yuck ?icon ?size]
+    (eventbox
+        :onhover "eww update ${varname}=true"
+        :onhoverlost "eww update ${varname}=false"
+        
+        (box
+            :space-evenly false
+
+            (revealer
+                :reveal var
+                :duration "150ms"
+                :transition "slideleft"
+                :valign "center"
+
+                ;(literal :content "(box :orientation 'vertical' ${yuck})")
+                (literal :content yuck)
+            )
+
+            (label
+                :text icon
+                :class "rev-widget"
+                :style "font-size: ${size}"
+            )
+        )
+    )
+)
+
+(defwindow bar
+    :monitor 0
+    :geometry (geometry
+        :x 0 :y -16
+        :width "1890px" :height "60px"
+        :anchor "bottom center"
+    )
+
+    :stacking "bg"
+    :windowtype "dock"
+    :wm-ignore false
+    
+    (centerbox
+        ; Workspaces
+        (box
+            :space-evenly false
+            
+            (eventbox
+                :onclick "${allow-schemes ? 'cd ~/colored && python3 PLT.py -rand &' : ''}"
+                :onrightclick "${allow-schemes ? 'eww update show-schemes=${!show-schemes}' : ''}"
+                ;:onmiddleclick "eww update allow-schemes=${!allow-schemes}"
+                :cursor "${allow-schemes ? 'default' : 'not-allowed'}"
+                :onhover "eww open schemes"
+                :onhoverlost "eww ${show-schemes ? 'open' : 'close'} schemes"
+                :timeout "100ms"
+                :class "schemes-btn"
+                :valign "center"
+                :halign "center"
+        
+                (label
+                    :text "" ;
+                )
+            )
+
+            (button
+                :onclick "eww update allow-schemes=${!allow-schemes}"
+                :class "schemes-lock"
+ 
+                ""
+            )
+
+            (eventbox
+                :onhover "eww open wk-helper"
+                :onhoverlost "eww close wk-helper"
+                (box
+                    :halign "start"
+                    :space-evenly false
+
+                    (for wk in wks
+                        (label
+                            :text "${wk['focused'] ? '' : ''}"
+                            :style "color: ${wk['focused'] ? c-accent : c-com-fg}"
+                            :class "wk"
+                        )
+                    )
+                )
+            )
+        )
+
+        ; Hour
+        (box
+            (label
+                :text hour
+                :class "clock"
+                :tooltip date
+            )
+        )
+
+        ; Tray
+        (box
+            :halign "end"
+            :valign "center"
+            :space-evenly false
+
+            (rev-widget
+                :var rev-bat
+                :varname "rev-bat"
+                :yuck "(label :text `bat: ${EWW_BATTERY['BAT0']['capacity']}%`)"
+                :icon "${{'Discharging': '', 'Charging': ''}[EWW_BATTERY['BAT0']['status']]}"
+                :size 23
+            )
+
+            (rev-widget
+                :var rev-brg
+                :varname "rev-brg"
+                :yuck "(scale :min 8 :max 100 :class 'br-scale' :value 100 :onchange `xrandr --output eDP-1 --brightness $(bc -l <<< 'scale=2; {}/100')`)"
+                :icon ""
+                :size 40
+            )
+
+            (rev-widget
+                :var rev-sys
+                :varname "rev-sys"
+                ;:yuck "(box (button :class 'sys-btn' :onclick 'eww update open-graph=${!open-graph}; eww ${open-graph ? `close` : `open`} graph' ''))"    
+                :yuck "(box (button :class 'sys-btn' :onclick 'killall tilda; tilda -c htop &' ''))"
+                :icon "﬙"
+                :size 40
+            )
+
+            (eventbox
+                :onclick "eww update show-pannel=${!show-pannel}"
+                :onhover "eww update hv-arrow=true; eww open pannel"
+                :onhoverlost "eww update hv-arrow=false; eww ${show-pannel ? 'open' : 'close'} pannel"
+                :class "arrow-box"
+
+                (label
+                    :text "卑"
+                    :angle "${show-pannel ? 0 : -90}"
+                    :style "background-color: ${hv-arrow ? c-bg : c-accent}"
+                    :class "arrow"
+                )
+            )
+        )
+    )
+)

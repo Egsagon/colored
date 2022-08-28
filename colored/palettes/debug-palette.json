@@ -1,0 +1,10 @@
+{
+    "name": "Debug palette",
+    "com_fg": "#000000",
+    "fg": "#888888",
+    "com_acc": "#00ff00",
+    "accent": "#ff0000",
+    "com_bg": "#ff00ff",
+    "bg": "#ffffff",
+    "theme": "light"
+}

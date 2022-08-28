@@ -1,0 +1,9 @@
+{
+    "name": "Qtile",
+    "active": true,
+    "type": "command",
+
+    "commands": [
+        "qtile cmd-obj -o cmd -f reload_config"
+    ]
+}

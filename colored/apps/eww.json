@@ -1,0 +1,8 @@
+{
+    "name": "EWW",
+    "active": true,
+    "type": "ow-all",
+
+    "path": "/home/egsagon/.config/eww/colors.yuck",
+    "value": "(defvar c-com-fg \"@com_fg\")\n(defvar c-fg \"@fg\" )\n(defvar c-com-acc \"@com_acc\")\n(defvar c-accent \"@accent\")\n(defvar c-com-bg \"@com_bg\")\n(defvar c-bg \"@bg\")"
+}

@@ -1,0 +1,8 @@
+{
+    "name": "i3lock-color",
+    "active": true,
+    "type": "ow-all",
+
+    "path": "/home/egsagon/.config/qtile/colors.sh",
+    "value": "bg=@bgFF\naccent=@accentFF\n"
+}

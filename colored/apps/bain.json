@@ -1,0 +1,10 @@
+{
+    "name": "BAIN",
+    "active": true,
+    "type": "ow-all",
+
+    "path": "/home/egsagon/.bain/colors.sh",
+    "value": "com_acc=@com_acc\naccent=@accent\ncom_bg=@com_bg\nbg=@bg",
+
+    "done": "killall bain"
+}

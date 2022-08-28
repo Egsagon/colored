@@ -1,0 +1,11 @@
+{
+    "name": "Wallpaper",
+    "active": true,
+    "type": "command",
+
+    "commands": [
+        "cd ~/.bain; ./bain arch &"
+    ],
+
+    "...": "convert -size 1920x1050 xc:\"#EEEEEE\" /tmp/bg.jpg; feh --bg-fill /tmp/bg.jpg"
+}

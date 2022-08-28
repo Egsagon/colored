@@ -1,0 +1,10 @@
+{
+    "name": "Mars",
+    "com_fg": "#19323C",
+    "fg": "#6D4128",
+    "com_acc": "#FF7E47",
+    "accent": "#FF632F",
+    "com_bg": "#B0BBBF",
+    "bg": "#EEEEEE",
+    "theme": "light"
+}
